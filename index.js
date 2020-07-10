@@ -50,8 +50,6 @@ function findAdjacent(node, vertices, edges)
       }
     }
   }
-  console.log(`returning from findAdjacent`)
-  console.log(adjArr)
   return adjArr
 }
 
