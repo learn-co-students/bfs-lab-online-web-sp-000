@@ -17,22 +17,6 @@ let vertices = [
   {name: '23rd&Lex', distance: null, predecessor: null},
 ]
 
-/*
-    rootNode = vertices[0]
-    queue = []
-    addVertexToQueue(rootNode)
-        // queue = [rootNode]
-    while(!queue.length == 0) {
-        let firstNode = queue.shift()
-    adjacentVertices = findAdjacent(firstNode)
-        for vertex in adjacentVertices {
-            markDistanceAndPredecessor(vertex)
-            addToQueue(vertex)
-        }
-    }
-
-*/
-
 function findAdjacent(node, vertices, edges) {
     let adjacents = [];
     let result = [];
@@ -50,6 +34,45 @@ function findAdjacent(node, vertices, edges) {
     return result;
 }
 
-function bfs(rootNode, vertices, edges){
+function markDistanceAndPredecessor(rootNode, adjacentNodes) {
+    for (let adjacent of adjacentNodes) {
+        adjacent.distance = rootNode.distance + 1;
+        adjacent.predecessor = rootNode;
+    }
 
+}
+
+/*
+    rootNode = vertices[0]
+    queue = []
+    addVertexToQueue(rootNode)
+        // queue = [rootNode]
+    while(!queue.length == 0) {
+        let firstNode = queue.shift()
+    adjacentVertices = findAdjacent(firstNode)
+        for vertex in adjacentVertices {
+            markDistanceAndPredecessor(vertex)
+            addToQueue(vertex)
+        }
+    }
+
+*/
+
+function bfs(rootNode, vertices, edges){
+    rootNode.distance = 0;
+    let queue = [];
+    let visited = [];
+
+    queue.push(rootNode);
+
+    while(queue.length !== 0) {
+        let firstNode = queue.shift();
+        visited.push(firstNode);
+        let adjacentVertices = findAdjacent(firstNode.name, vertices, edges);
+        for (let vertex of adjacentVertices) {
+            markDistanceAndPredecessor(vertex, adjacentVertices);
+            queue.push(vertex);
+        }
+    }
+    return visited;
 }
