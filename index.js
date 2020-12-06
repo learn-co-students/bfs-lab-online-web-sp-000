@@ -33,6 +33,23 @@ let vertices = [
 
 */
 
+function findAdjacent(node, vertices, edges) {
+    let adjacents = [];
+    let result = [];
+
+    edges.forEach(edge => {
+        if (edge[0] === node ) {adjacents.push(edge[1])}
+        else if (edge[1] === node ) {adjacents.push(edge[0])}
+    })
+
+    vertices.forEach(node => {
+        if ((node['name'] === adjacents[0] || node['name'] === adjacents[1]) && node['distance'] === null) {
+            result.push(node);
+        }
+    });
+    return result;
+}
+
 function bfs(rootNode, vertices, edges){
 
 }
